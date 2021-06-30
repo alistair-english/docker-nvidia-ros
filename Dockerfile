@@ -2,7 +2,7 @@ FROM nvcr.io/nvidia/l4t-base:r32.5.0
 
 # ==============================================================================
 # ROS Core
-# Copied from: https://github.com/osrf/docker_images/blob/3d6c5055ec0375ceed69623a911db7895fe30cdc/ros/noetic/ubuntu/focal/ros-core/Dockerfile
+# Copied from: https://github.com/osrf/docker_images/blob/3d6c5055ec0375ceed69623a911db7895fe30cdc/ros/melodic/ubuntu/bionic/ros-core/Dockerfile
 # ==============================================================================
 
 # setup timezone
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # setup sources.list
-RUN echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros1-latest.list
+RUN echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros1-latest.list
 
 # setup keys
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
@@ -28,11 +28,11 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C1CF6E31E6
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
-ENV ROS_DISTRO noetic
+ENV ROS_DISTRO melodic
 
 # install ros packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-noetic-ros-core=1.5.0-1* \
+    ros-melodic-ros-core=1.4.1-0* \
     && rm -rf /var/lib/apt/lists/*
 
 # setup entrypoint
@@ -43,15 +43,15 @@ CMD ["bash"]
 
 # ==============================================================================
 # ROS Base
-# Copied from: https://github.com/osrf/docker_images/blob/3d6c5055ec0375ceed69623a911db7895fe30cdc/ros/noetic/ubuntu/focal/ros-base/Dockerfile
+# Copied from: https://github.com/osrf/docker_images/blob/3d6c5055ec0375ceed69623a911db7895fe30cdc/ros/melodic/ubuntu/bionic/ros-base/Dockerfile
 # ==============================================================================
 
 # install bootstrap tools
 RUN apt-get update && apt-get install --no-install-recommends -y \
     build-essential \
-    python3-rosdep \
-    python3-rosinstall \
-    python3-vcstools \
+    python-rosdep \
+    python-rosinstall \
+    python-vcstools \
     && rm -rf /var/lib/apt/lists/*
 
 # bootstrap rosdep
@@ -60,5 +60,5 @@ RUN rosdep init && \
 
 # install ros packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-noetic-ros-base=1.5.0-1* \
+    ros-melodic-ros-base=1.4.1-0* \
     && rm -rf /var/lib/apt/lists/*
